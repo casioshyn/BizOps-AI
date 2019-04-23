@@ -1,0 +1,102 @@
+<form [formGroup]="sellerBuildingData" (ngSubmit)="saveSellerBuildingInfo()">
+  <div class="col-md-12 col-lg-12">       
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Type:<span style="color: red;font-size: 20px">*</span></label>
+                      <ng-select [items]="building_types" bindLabel="TYPES" bindValue="TYPES"
+                        formControlName="BuildingType" placeholder="Type" 
+                        (change)="changeBuildingType($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.BuildingType.errors }">
+                        <div *ngIf="submitted && f.BuildingType.errors" class="invalid-feedback">
+                          <div *ngIf="f.BuildingType.errors.required">Building Type is
+                            required</div>
+                        </div>
+                      </ng-select>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>SubTypes:<span style="color: red;font-size: 20px">*</span></label>
+                      <ng-select [items]="subbuilding_types" bindLabel="SUB_TYPES" bindValue="SUB_TYPES"
+                        formControlName="BuildingSubTypes" placeholder="Sub Types" 
+                        [ngClass]="{ 'is-invalid': submitted && f.BuildingSubTypes.errors }">
+                        <div *ngIf="submitted && f.BuildingSubTypes.errors" class="invalid-feedback">
+                          <div *ngIf="f.BuildingSubTypes.errors.required">
+                            BuildingSubType is required</div>
+                        </div>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Size (sq.ft.)</label>
+                      <input type="text" formControlName="BuildingSize" class="form-control" />
+                      <div *ngIf="submitted && f.BuildingSize.errors" class="invalid-feedback">
+                        <div *ngIf="f.BuildingSize.errors.required">Size is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Built Year</label>
+                      <input type="text" formControlName="builtYear" class="form-control" />
+                      <div *ngIf="submitted && f.builtYear.errors" class="invalid-feedback">
+                        <div *ngIf="f.builtYear.errors.required">Built Year is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Rest Rooms</label>
+                      <input type="text" formControlName="restRoom" class="form-control" />
+                      <div *ngIf="submitted && f.restRoom.errors" class="invalid-feedback">
+                        <div *ngIf="f.restRoom.errors.required">Number of Rest Room is
+                          required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Zoning</label>
+                      <input type="text" formControlName="buildingZone" class="form-control">
+                      <div *ngIf="submitted && f.buildingZone.errors" class="invalid-feedback">
+                        <div *ngIf="f.buildingZone.errors.required">Zoning Details
+                          required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Parking</label>
+                      <input type="text" formControlName="buildingPark" class="form-control">
+                      <div *ngIf="submitted && f.buildingPark.errors" class="invalid-feedback">
+                        <div *ngIf="f.buildingPark.errors.required">Zoning Details
+                          required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12">   
+          <button type="submit" style="width:150px" class="btn btn-success float-right"
+             >Save</button>
+             </div>       
+         </div> 
+      </div>      
+    </form>
+   
+

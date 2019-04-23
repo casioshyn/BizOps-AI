@@ -1,0 +1,63 @@
+<form [formGroup]="sellerTermsData" (ngSubmit)="saveSellerTermsInfo()">
+    <div class="col-md-12 col-lg-12">
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                    <label>Sale Amount</label>
+                    <input type="text" formControlName="saleAmount" class="form-control" />
+                    <div *ngIf="submitted && f.saleAmount.errors" class="invalid-feedback">
+                      <div *ngIf="f.saleAmount.errors.required">Sale Amount is
+                        required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <div class="form-group">                   
+                    <label>Why selling :<span style="color: red;font-size: 20px">*</span></label>
+                    <textarea class="form-control" rows="4" cols="80" formControlName="whySell"
+                      [ngClass]="{ 'is-invalid': submitted && f.whySell.errors }"
+                      placeholder="You can write your text here..."></textarea>
+                    <div *ngIf="submitted && f.whySell.errors" class="invalid-feedback">
+                      <div *ngIf="f.whySell.errors.required">Why sell is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                    <label>Desired Time to Close </label>
+                    <input type="text" formControlName="desiredTime" class="form-control">
+                    <div *ngIf="submitted && f.desiredTime.errors" class="invalid-feedback">
+                      <div *ngIf="f.desiredTime.errors.required">Desired Time is
+                        required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <div class="form-group">
+                    <label>Fees </label>
+                    <input type="text" formControlName="fees" class="form-control">
+                    <div *ngIf="submitted && f.fees.errors" class="invalid-feedback">
+                      <div *ngIf="f.fees.errors.required">Fees is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>        
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 col-lg-12">   
+        <button type="submit" style="width:150px" class="btn btn-success float-right"
+           >Save</button>
+           </div>       
+       </div> 
+    </div>
+  </form>

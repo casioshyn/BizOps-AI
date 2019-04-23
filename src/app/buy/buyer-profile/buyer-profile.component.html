@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let l of buyerDetail  ">
+    <div class="card" style="height: 450px;width: 800px">
+      <div class="card-body">
+        <div class="row">
+          <h3 class="card-title "
+            style="margin-left:10px;height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold">Name : {{l.NAME}}
+          </h3>
+          <h3 class="card-text pull-right"
+            style="margin-left: auto; margin-right: 10px;height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold">
+            Email : {{l.EMAIL_ADDRESS}}</h3>
+        </div>
+        <div class="row">
+          <h6 style="margin-left: 10px;font-weight: bold">Contact : {{l.CELL_NUMBER}} </h6>
+          <h6 style="margin-left: auto; margin-right: 10px;font-weight: bold">Address :
+            <i class="icon-location-pin" style="color:red"></i>
+            &nbsp;{{l.HOME_ADDRESS}}</h6>
+        </div>
+        <div style="margin-top: 20px">         
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+              <label style="font-weight: bold">Bank Report </label>
+              </div>
+              <div class="col-md-5 col-lg-5">
+              <button type="button" class="btn btn-sm btn-info" 
+                data-toggle="modal" (click)="buyBankModal.show()" style="width: 120px" (click)="bankReport()"> Show </button>
+              </div>
+            </div> 
+              <div bsModal #buyBankModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Bank Documents</h4>
+                      <button type="button" class="close" (click)="buyBankModal.hide()" aria-label="Close"
+                        #closeProcess>
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div *ngIf="showbankPDF">
+                            <pdf-viewer src="{{'../assets/img/documents/'+ l.BANK_REPORT}}" [render-text]="true"
+                              [page]="page" [show-all]="false" style="display: block;">
+                            </pdf-viewer>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" (click)="buyBankModal.hide()">
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>                  
+        </div>
+        <div  style="margin-top: 20px">         
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+              <label style="font-weight: bold">License Report </label>
+              </div>
+              <div class="col-md-5 col-lg-5">
+              <button type="button" class="btn btn-sm btn-info" 
+                data-toggle="modal" (click)="buyLicenseModal.show()" style="width: 120px" (click)="licenseReport()"> Show </button>
+              </div>
+            </div>     
+              <div bsModal #buyLicenseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">License Documents</h4>
+                      <button type="button" class="close" (click)="buyLicenseModal.hide()" aria-label="Close"
+                        #closeProcess>
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div *ngIf="showlicensePDF">
+                            <pdf-viewer src="{{'../assets/img/documents/'+ l.LICENSE_REPORT}}" [render-text]="true"
+                              [page]="page" [show-all]="false" style="display: block;">
+                            </pdf-viewer>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" (click)="buyLicenseModal.hide()">
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>            
+        </div>
+        <div  style="margin-top: 20px">        
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+              <label style="font-weight: bold">Financial Report </label>
+              </div>
+              <div class="col-md-5 col-lg-5">
+              <button type="button" class="btn btn-sm btn-info" 
+                data-toggle="modal" (click)="buyFinModal.show()" style="width: 120px" (click)="finReport()"> Show </button>
+              </div>
+            </div>  
+              <div bsModal #buyFinModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Financial Documents</h4>
+                      <button type="button" class="close" (click)="buyFinModal.hide()" aria-label="Close" #closeProcess>
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div *ngIf="showfinPDF">
+                            <pdf-viewer src="{{'../assets/img/documents/'+ l.FIN_REPORT}}" [render-text]="true"
+                              [page]="page" [show-all]="false" style="display: block;">
+                            </pdf-viewer>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" (click)="buyFinModal.hide()">
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>                 
+        </div>
+        <br>
+        <div class="button-container">
+          <button type="button" class="btn btn-danger pull-right" (click)="buyerEdit(l.NAME)">
+            <i class="fa fa-google-plus-g"></i> Edit Profile </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

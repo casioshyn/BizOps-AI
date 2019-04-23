@@ -1,0 +1,199 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="title text-center" style="font-weight: bold">
+        Seller Registration
+      </h4>
+    </div>
+    <div class="card-body">
+      <form *ngIf='isFirstTime' [formGroup]="sellerRegForm">
+        <div class="container-fluid">
+          <ngb-tabset #tab="ngbTabset" [justify]="justified">
+            <ngb-tab title="Business Entity" id='0' (click)="change()">
+              <ng-template ngbTabContent>
+                <app-seller-business [sellerBusinessData]="sellerRegForm.controls.sellerBusinessData"
+                  [edit_CompanyID]="EditCompanyID"  [secondaryImages]="sec_Images" (tabActive)="tabActivate()" (getsecImg)="getSecImages()"></app-seller-business>
+                <div class="row" >
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="bussinessInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="bussinessInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Personal Info" id='1' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-personal [sellPersonal]="sellerRegForm.controls.sellPersonal" [Company_Id]="company_id"
+                [edit_CompanyID]="EditCompanyID"></app-seller-personal>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="personalInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="personalInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
+            <ngb-tab title="Financial Info" id='2' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-financial [edit_CompanyID]="EditCompanyID" [sellerFinancialData]="sellerRegForm.controls.sellerFinancialData"
+                  ></app-seller-financial>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="financialInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="financialInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Building Info" id='3' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-building [edit_CompanyID]="EditCompanyID" [sellerBuildingData]="sellerRegForm.controls.sellerBuildingData"
+                  ></app-seller-building>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="buildingInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="buildingInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Premises Info" id='4' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-premises [sellerPremiseData]="sellerRegForm.controls.sellerPremiseData"
+                [edit_CompanyID]="EditCompanyID"> </app-seller-premises>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="premiseInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="premiseInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Agent Info" id='5' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-agent-info [sellerAgentData]="sellerRegForm.controls.sellerAgentData"
+                [edit_CompanyID]="EditCompanyID"> </app-seller-agent-info>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="agentInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="agentInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Service Info" id='6' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-services [sellerServiceData]="sellerRegForm.controls.sellerServiceData"
+                [edit_CompanyID]="EditCompanyID"> </app-seller-services>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="serviceInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="serviceInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Terms Info" id='7' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-terms [sellerTermsData]="sellerRegForm.controls.sellerTermsData" [edit_CompanyID]="EditCompanyID">
+                </app-seller-terms>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="termsInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="termsInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Process OverView" id='8' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-process-overview [sellerProcessOverView]="sellerRegForm.controls.sellerProcessOverView"
+                [edit_CompanyID]="EditCompanyID"> </app-seller-process-overview>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-info float-left"
+                      (click)="processInfoNext()">Next</button>
+                  </div>
+                  <div class="col-md-3 col-lg-3">
+                    <button type="button" style="width:150px" class="btn btn-danger float-left"
+                      (click)="processInfoNext()">Skip</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Other Documents" id='9' [disabled]="disabled">
+              <ng-template ngbTabContent>
+                <app-seller-other-docs [sellerOtherDocs]="sellerRegForm.controls.sellerOtherDocs"
+                [edit_CompanyID]="EditCompanyID"> </app-seller-other-docs>
+                <!-- <div class="row">
+                          <div class="col-md-3 col-lg-3">
+                          <button type="button" style="width:150px" class="btn btn-info float-left"
+                              (click)="otherDocsInfoNext()">Next</button>
+                          </div>
+                          <div class="col-md-3 col-lg-3">
+                          <button type="button" style="width:150px" class="btn btn-danger float-left"
+                              (click)="otherDocsInfoNext()">Skip</button>
+                          </div>                       
+                        </div> -->
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </form>
+      <div *ngIf='!isFirstTime'>
+        <div class="row">
+          <div class="ml-auto ">
+            <button type="button" class="btn btn-primary" (click)="isFirstTime=!isFirstTime" (click)="creteNewSell()">
+              <i class="fa fa-edit"></i> Create New
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor='let l of userBussinesslist' class="col-lg-3 col-md-3">
+            <div class="card" style="height: 150px;
+                      text-align: center;
+                      box-shadow: 0 1px 9px rgba(15,18,18,.35)" (click)='loadBizData(l.COMPANY_ID)'>
+              <span style="margin-top: auto;margin-bottom: auto;">
+                <h3> {{l.TITLE}} </h3>
+              </span>
+              <p> fill the remaining fields </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

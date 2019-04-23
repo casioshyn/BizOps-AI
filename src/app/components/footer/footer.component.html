@@ -1,0 +1,106 @@
+<footer class="footer">
+    <div class="container">
+        <!-- <div class="container"> -->
+        <div class="row" style="margin-top: 20px" >
+            <div class="col-sm-2" style="margin-top: 20px">
+                <h5 style="color: white">Search for (Buyer Role)</h5>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/home/buy" style="color: white" >Business</a></li>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/home/lease" style="color: white">Commercial Space</a></li>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/operate/hire" style="color: white">Professional</a></li>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/operate/product" style="color: white">Product</a></li>
+            </div>
+            <div class="col-sm-2 offset-sm-1 " style="margin-top: 20px">
+                <h5 style="color: white">List a (Seller’s Role)</h5>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'"  routerLink="/sell/sell-reg" style="color: white">Sell Business</a></li>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/home/lease" style="color: white">Commercial Space</a></li>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/operate/hire" style="color: white">Professional</a></li>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/operate/product" style="color: white">Product</a></li>
+            </div>
+            <div class="col-sm-2 offset-sm-1" style="margin-top: 20px">
+                <h5 style="color: white">Purchase and Sale of a Business</h5>
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" routerLink="/lease" style="color: white">Leasing</a> </li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white"> Selling Guides</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white"> Employment </li>
+                <ul>
+                    <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Hiring Professionals</li>
+                    <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Hiring Employees</li>
+                </ul>
+            </div>
+            <div class="col-sm-2 offset-sm-1 " style="margin-top: 20px">
+                <li><a onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'"  href="bizopsai.com" style="color: white">About</a> </li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Contact Us</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Careers</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Education</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Media</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Mobile Apps</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Press</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white" (click)="termsData()"
+                data-dismiss="modal" data-toggle="termsModal"  (click)="termsModal.show()" >Private Policy</li>
+                <li onMouseOver="this.style.color='#20a8d8'" onMouseOut="this.style.color='white'" style="color: white">Terms of use</li>
+            </div>
+            <!-- </div> -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6 offset-lg-4">
+                <ul style="padding: initial;">
+                    <div class="row">
+                        <li>
+                            <a style="color: rgb(13, 229, 245)" href="https://www.facebook.com/BizOps-AI-2007255442897756/?ref=page_internal" class="fa fa-facebook"></a>
+                        </li>
+                        <li>
+                            <a style="color: rgb(13, 229, 245)" href="https://in.linkedin.com/company/bizopsai" class="fa fa-linkedin"></a>
+                        </li>
+                        <li>
+                            <a style="color: rgb(13, 229, 245)" href="#" class="fa fa-twitter"></a>
+                        </li>
+                        <li>
+                            <a  style="color: rgb(13, 229, 245)" href="#" class="fa fa-instagram"></a>
+                        </li>
+                        <li>
+                            <a style="color: rgb(13, 229, 245)" href="#" class="fa fa-telegram"></a>
+                        </li>
+                    </div>
+                    <span class="copyright offset-lg-1 offset-sm-1">
+                        <a style="color: white"> BizOps AI© 2019 Copyright </a>
+                    </span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<div bsModal #termsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Terms and Conditions</h4>
+                <button type="button" class="close" (click)="termsModal.hide()" aria-label="Close" #closeProcess>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style=" height: 500px;overflow-y: auto;"> 
+                <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-body">                       
+                        <!-- <button type="button" class="btn btn-primary" (click)="termsDocument()">Terms & Conditions</button> -->
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div *ngIf="showPDF">
+                              <pdf-viewer src="{{ '../assets/img/documents/privacy.pdf'}}" [render-text]="true"
+                                [page]="page"  style="display: block;" [original-size]="false" >
+                              </pdf-viewer>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>        
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="termsModal.hide()">
+                    Close
+                </button>               
+            </div>
+        </div>
+    </div>
+</div>

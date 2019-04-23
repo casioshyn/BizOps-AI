@@ -1,0 +1,255 @@
+<form [formGroup]="sellPersonal" (ngSubmit)="saveSellerPersonalInfo()">
+  <div class="col-md-12 col-lg-12">
+    <div>
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 col-lg-4">
+                  <div class="form-group">
+                    <label>Name:<span style="color: red;font-size: 20px">*</span></label>
+                    <input type="text" formControlName="Name" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+                    <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                      <div *ngIf="f.Name.errors.required">Name is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-lg-4 ">
+                  <div class="form-group">
+                    <label>Home address:<span style="color: red;font-size: 20px">*</span></label>
+                    <input type="text" formControlName="HomeAddress" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.HomeAddress.errors }" />
+                    <div *ngIf="submitted && f.HomeAddress.errors" class="invalid-feedback">
+                      <div *ngIf="f.HomeAddress.errors.required">Home address is
+                        required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-lg-4 ">
+                  <button type="button" style="width:150px" (click)="addItem()" class="btn btn-primary float-right">Add
+                    Address</button>
+                </div>
+              </div>
+              <div class="row">
+                <div *ngIf="multiAddress" class="col-md-5  col-lg-5 ">
+                  <div formArrayName="items"
+                    *ngFor="let item of sellPersonal.get('items').controls; let i = index;">
+                    <div [formGroupName]="i">
+                      <label>Address:<span style="color: red;font-size: 20px"></span></label>
+                      <input type="text" formControlName="addAddress" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.addAddress.errors }" />
+                      <div *ngIf="submitted && f.addAddress.errors" class="invalid-feedback">
+                        <div *ngIf="f.addAddress.errors.required">Home address is
+                          required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                    <label>Email:<span style="color: red;font-size: 20px">*</span></label>
+                    <input type="email" formControlName="Email" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+                    <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                      <div *ngIf="f.Email.errors.required"> Email is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <div class="form-group">
+                    <label>Fax Number</label>
+                    <input type="number" formControlName="FaxNumber" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.FaxNumber.errors }" />
+                    <div *ngIf="submitted && f.FaxNumber.errors" class="invalid-feedback">
+                      <div *ngIf="f.FaxNumber.errors.required">Fax Number is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                    <label>Cell Phone </label>
+                    <input type="number" formControlName="CellPhone" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.CellPhone.errors }" />
+                    <div *ngIf="submitted && f.CellPhone.errors" class="invalid-feedback">
+                      <div *ngIf="f.CellPhone.errors.required">Cell Phone Number is
+                        required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <div class="form-group">
+                    <label>Home Phone </label>
+                    <input type="number" formControlName="HomePhone" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.HomePhone.errors }" />
+                    <div *ngIf="submitted && f.HomePhone.errors" class="invalid-feedback">
+                      <div *ngIf="f.HomePhone.errors.required">Home Phone Number is
+                        required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>            
+              <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                    <label>DOB</label>
+                    <input type="date" formControlName="DOB" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.DOB.errors }" />
+                    <div *ngIf="submitted && f.DOB.errors" class="invalid-feedback">
+                      <div *ngIf="f.DOB.errors.required">Date of birth is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <div class="form-group">
+                    <label>Place</label>
+                    <input type="text" formControlName="BirthPlace" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.BirthPlace.errors }" />
+                    <div *ngIf="submitted && f.BirthPlace.errors" class="invalid-feedback">
+                      <div *ngIf="f.BirthPlace.errors.required">Place is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+              <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <label>License </label>
+                  <input ng2FileSelect [uploader]="licenseUploader" class="form-control" 
+                    type="file" id="license" #license>
+                  <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                  <div class="row">
+                    <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                    <button type="button" class="btn btn-sm btn-danger" (click)="clearLicenseFile()" >clear
+                      file</button>
+                    <button type="button" class="btn btn-sm btn-primary" (click)="uploadLicenseReport()">Uplaod</button>
+                    <div *ngIf="edit_CompanyID!=undefined">
+                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" (click)="myModal.show()" (click)="viewLicense()">View Documents</button>
+                        <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                            <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">License Documents</h4>
+                                        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close" #closeProcess>
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div *ngIf="showLicensePdf">
+                                                    <div *ngFor='let l of filteredList'>
+                                                        <pdf-viewer src="{{ '../assets/img/SocialDocs/' +l.LICENSE_IMG }}" [render-text]="true" [page]="page" [show-all]="true"
+                                                            style="display: block;">
+                                                        </pdf-viewer>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>           
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <label>Upload Social Security</label>
+                  <input ng2FileSelect [uploader]="socialSecurityUploader" class="form-control" 
+                    type="file" id="socialSecurity" #socialSecurity>
+                  <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                  <div class="row">
+                    <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                    <button type="button" class="btn btn-sm btn-danger" (click)="clearSocialFile()" >clear file</button>
+                    <button type="button" class="btn btn-sm btn-primary" (click)="uploadSocReport()">Uplaod</button>
+                    <div *ngIf="edit_CompanyID!=undefined">
+                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" (click)="mysocModal.show()" (click)="viewSoc()">View Documents</button>
+                        <div bsModal #mysocModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Social Security Documents</h4>
+                                        <button type="button" class="close" (click)="mysocModal.hide()" aria-label="Close" #closeProcess>
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div *ngIf="showSocPdf">
+                                                    <div *ngFor='let l of filteredList'>
+                                                        <pdf-viewer src="{{ '../assets/img/SocialDocs/' + l.SOC_IMG }}" [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                                        </pdf-viewer>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" (click)="mysocModal.hide()">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                  </div>                  
+                </div>              
+              </div>
+              <!-- <div class="row">
+                  <div class="col-md-5 col-lg-5">
+                      <label style="width:150px;" for="image">Profile Image</label>
+                      <input type="file" id="userProfile" ng2FileSelect
+                          [uploader]="userProfileImageUploader" #fileInput>
+                          <div class="row">
+                              <button type="button" class="btn btn-sm btn-danger"
+                                  (click)="clearProfileImage()">clear file
+                              </button>
+                              <button type="button" class="btn btn-sm btn-primary"
+                                  (click)="uploadProfileImage()">upload
+                              </button>
+                          </div>
+                      <div class="row">
+                          <div *ngIf="isUpload">                                     
+                              <img *ngFor='let img of userProfileImage'
+                                  src="{{'data:image/jpg;base64,' + img.value}}" height="100"
+                                  width="100">                                      
+                          </div>  
+                                                     
+                          <div *ngIf="!isUpload">
+                              <div *ngIf="edit_CompanyID!=undefined">
+                              <img src="{{'../assets/img/UserProfile/' + sellPersonal.value.Profile_Img}}" height="100" width="100">
+                          </div>
+                          </div>
+                      </div>
+                  </div>                      
+              </div> -->
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">   
+      <button type="submit" style="width:150px" class="btn btn-success float-right"
+         >Save</button>
+         </div>       
+     </div> 
+  </div>
+</form>

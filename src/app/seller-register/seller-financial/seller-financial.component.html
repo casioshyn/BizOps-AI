@@ -1,0 +1,379 @@
+<form [formGroup]="sellerFinancialData" (ngSubmit)="saveSellerFinancialInfo()">
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>Annual Revenue:<span style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="priceList" formControlName="Revenue"
+                                        placeholder="Annual Revenue">
+                                        <ng-template ng-label-tmp ng-option-tmp let-item="item">
+                                            {{item | currency}}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>Cash Flow :<span style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="priceList" formControlName="CashFlow" placeholder="Cash Flow">
+                                        <ng-template ng-label-tmp ng-option-tmp let-item="item">
+                                            {{item | currency}}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>Expense :<span style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="priceList" formControlName="Expense" placeholder="Expense">
+                                        <ng-template ng-label-tmp ng-option-tmp let-item="item">
+                                            {{item | currency}}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <label>Bank Reports(Data Room)</label>
+                                <input ng2FileSelect [uploader]="bankReportUploader" class="form-control" type="file"
+                                    id="bankPDF" #bankReport>                           
+                                   
+                                                                      
+                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                <div class="row">
+                                    <button type="button" class="btn btn-sm btn-danger" (click)="clearBankReport()">clear file</button>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="uploadbankReport()">upload</button>
+                                    <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                            (click)="mybankModal.show()" (click)="viewBankData()">View
+                                            Documents</button>
+                                        <div bsModal #mybankModal="bs-modal" class="modal fade" tabindex="-1"
+                                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document"
+                                                style="overflow-y: initial !important">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Bank Documents </h4>
+                                                        <button type="button" class="close" (click)="mybankModal.hide()"
+                                                            aria-label="Close" #closeProcess>
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div *ngIf="showBankPdf">
+                                                                    <div *ngFor='let l of filteredList'>
+                                                                        <pdf-viewer
+                                                                            src="{{ '../assets/img/SocialDocs/' + l.BANK_IMG }}"
+                                                                            [render-text]="true" [page]="page"
+                                                                            [show-all]="true"  style="display: block;">
+                                                                        </pdf-viewer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            (click)="mybankModal.hide()">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <label>License Reports(Data Room)</label>
+                                <input ng2FileSelect [uploader]="licenseReportUploader" class="form-control" type="file"
+                                    id="licenseRep"  #licenseReport>
+                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                <div class="row">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="clearLicenseReport()">clear file</button>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="uploadLicenseReport()">upload</button>
+                                    <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                            (click)="mylirModal.show()" (click)="viewLicenseReport()">View
+                                            Documents</button>
+                                        <div bsModal #mylirModal="bs-modal" class="modal fade" tabindex="-1"
+                                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document"
+                                                style="overflow-y: initial !important">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">License Documents </h4>
+                                                        <button type="button" class="close" (click)="mylirModal.hide()"
+                                                            aria-label="Close" #closeProcess>
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div *ngIf="showLicenseReportPdf">
+                                                                    <div *ngFor='let l of filteredList'>
+                                                                        <pdf-viewer
+                                                                            src="{{ '../assets/img/SocialDocs/' + l.LIR_IMG }}"
+                                                                            [render-text]="true" [page]="page"
+                                                                            [show-all]="true" style="display: block;">
+                                                                        </pdf-viewer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            (click)="mylirModal.hide()">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <label>Certificates(Data Room)</label>
+                                <input ng2FileSelect [uploader]="certificateUploader" class="form-control" type="file"
+                                    id="certificateRep"  #certificate>
+                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                <div class="row">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="clearCertificateReport()">clear file</button>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="uploadCertificateReport()">upload</button>
+                                    <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                            (click)="mycertModal.show()" (click)="viewCertData()">View
+                                            Documents</button>
+                                        <div bsModal #mycertModal="bs-modal" class="modal fade" tabindex="-1"
+                                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document"
+                                                style="overflow-y: initial !important">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Certificates Documents</h4>
+                                                        <button type="button" class="close" (click)="mycertModal.hide()"
+                                                            aria-label="Close" #closeProcess>
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div *ngIf="showCertPdf">
+                                                                    <div *ngFor='let l of filteredList'>
+                                                                        <pdf-viewer
+                                                                            src="{{ '../assets/img/SocialDocs/' + l.CERTFICATE_IMG }}"
+                                                                            [render-text]="true" [page]="page"
+                                                                            [show-all]="true" style="display: block;">
+                                                                        </pdf-viewer>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            (click)="mycertModal.hide()">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <label>Reports(Data Room)</label>
+                                <input ng2FileSelect [uploader]="reportsUploader" class="form-control" type="file"
+                                    id="reports" #reports>
+                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                <div class="row">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="ReportFile()">clear file</button>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="uploadReportFile()">upload</button>
+                                    <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                            (click)="myrepModal.show()" (click)="viewReport()">View Documents</button>
+                                        <div bsModal #myrepModal="bs-modal" class="modal fade" tabindex="-1"
+                                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document"
+                                                style="overflow-y: initial !important">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Reports</h4>
+                                                        <button type="button" class="close" (click)="myrepModal.hide()"
+                                                            aria-label="Close" #closeProcess>
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div *ngIf="showReportsPdf">
+                                                                    <div *ngFor='let l of filteredList'>
+                                                                        <pdf-viewer
+                                                                            src="{{ '../assets/img/SocialDocs/' + l.RP_IMG }}"
+                                                                            [render-text]="true" [page]="page"
+                                                                            [show-all]="true" style="display: block;">
+                                                                        </pdf-viewer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            (click)="myrepModal.hide()">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <label>Financial Statements(Data Room)</label>
+                                <input ng2FileSelect [uploader]="finStatementsUploader" class="form-control" type="file"
+                                    id="finState" #finStatements>
+                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                <div class="row">
+                                    <button type="button" class="btn btn-sm btn-danger" 
+                                    (click)="clearFinStatereport()">clear file</button>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="uploadFinStatereport()">upload</button>
+                                    <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                            (click)="myfinModal.show()" (click)="viewFinancialData()">View
+                                            Documents</button>
+                                        <div bsModal #myfinModal="bs-modal" class="modal fade" tabindex="-1"
+                                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document"
+                                                style="overflow-y: initial !important">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Financial Documents</h4>
+                                                        <button type="button" class="close" (click)="myfinModal.hide()"
+                                                            aria-label="Close" #closeProcess>
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div *ngIf="showFinsPdf">
+                                                                    <div *ngFor='let l of filteredList'>
+                                                                        <pdf-viewer
+                                                                            src="{{ '../assets/img/SocialDocs/' + l.FIN_IMG }}"
+                                                                            [render-text]="true" [page]="page"
+                                                                            [show-all]="true" style="display: block;">
+                                                                        </pdf-viewer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            (click)="myfinModal.hide()">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <label>Insurance Info(Data Room)</label>
+                                <input ng2FileSelect [uploader]="insuranceUploader" class="form-control" type="file"
+                                    id="insurance" #insurance>
+                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                <div class="row">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                    (click)="clearInsReport()">clear file</button>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="uploadInsReport()">upload</button>
+                                    <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                                            (click)="myinsModal.show()" (click)="viewInsData()">View Documents</button>
+                                        <div bsModal #myinsModal="bs-modal" class="modal fade" tabindex="-1"
+                                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document"
+                                                style="overflow-y: initial !important">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Insurance Documents</h4>
+                                                        <button type="button" class="close" (click)="myinsModal.hide()"
+                                                            aria-label="Close" #closeProcess>
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div *ngIf="showInsPdf">
+                                                                    <div *ngFor='let l of filteredList'>
+                                                                        <pdf-viewer
+                                                                            src="{{ '../assets/img/SocialDocs/' + l.INR_IMG }}"
+                                                                            [render-text]="true" [page]="page"
+                                                                            [show-all]="true" style="display: block;">
+                                                                        </pdf-viewer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            (click)="myinsModal.hide()">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <button type="submit" style="width:150px" class="btn btn-success float-right">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

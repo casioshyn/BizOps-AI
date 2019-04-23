@@ -1,0 +1,212 @@
+<form [formGroup]="sellerOtherDocs" (ngSubmit)="saveSellerOtherDocsInfo()">
+  <div class="col-md-12 col-lg-12">
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <label>Liabilities (Data Room)</label>
+                <input ng2FileSelect [uploader]="liabilitiesUploader" class="form-control" type="file" id="libilsImage"
+                #liabilities>
+                <div class="row">
+                  <button type="button" class="btn btn-sm btn-danger"
+                  (click)="clearLibilsReport()">clear file</button>
+                  <button type="button" class="btn btn-sm btn-primary" (click)="uploadLibilsReport()">upload</button>
+                  <div *ngIf="edit_CompanyID!=undefined">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                      (click)="mylibilsModal.show()" (click)="viewLibilsData()">View Documents</button>
+                    <div bsModal #mylibilsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                      aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Liabilities Documents</h4>
+                            <button type="button" class="close" (click)="mylibilsModal.hide()" aria-label="Close"
+                              #closeProcess>
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div *ngIf="showLibilsPdf">
+                                  <div *ngFor='let l of filteredList'>
+                                    <pdf-viewer src="{{ '../assets/img/documents/' + l.LIBILS_REPORT }}"
+                                      [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                    </pdf-viewer>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="mylibilsModal.hide()">
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                <label>Retirement and Benefits Plans(Data Room) </label>
+                <input ng2FileSelect [uploader]="retirementPlanUploader" class="form-control" type="file"
+                  id="retirePlanImage" #retirementPlan >
+                <div class="row">
+                  <button type="button" class="btn btn-sm btn-danger"
+                  (click)="clearRetirePlanReport()">clear file</button>
+                  <button type="button" class="btn btn-sm btn-primary"
+                    (click)="uploadRetirePlanReport()">upload</button>
+                  <div *ngIf="edit_CompanyID!=undefined">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                      (click)="myretireModal.show()" (click)="viewRetirePlandata()">View Documents</button>
+                    <div bsModal #myretireModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                      aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Retirement and Benefits Plans</h4>
+                            <button type="button" class="close" (click)="myretireModal.hide()" aria-label="Close"
+                              #closeProcess>
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div *ngIf="showRetirePlanPdf">
+                                  <div *ngFor='let l of filteredList'>
+                                    <pdf-viewer src="{{ '../assets/img/documents/' + l.RETIRE_PLAN_REPORT }}"
+                                      [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                    </pdf-viewer>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="myretireModal.hide()">
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <label>Key Contracts (Data Room)</label>
+                <input ng2FileSelect [uploader]="keyContractPlanUploader" class="form-control" type="file"
+                  id="keyContractImage" #keyContractPlan>
+                <div class="row">
+                  <button type="button" class="btn btn-sm btn-danger"
+                  (click)="clearKeyContractReport()">clear file</button>
+                  <button type="button" class="btn btn-sm btn-primary"
+                    (click)="uploadKeyContractReport()">upload</button>
+                  <div *ngIf="edit_CompanyID!=undefined">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" (click)="mykeyModal.show()"
+                      (click)="viewKeyContractData()">View Documents</button>
+                    <div bsModal #mykeyModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                      aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Key Contracts </h4>
+                            <button type="button" class="close" (click)="mykeyModal.hide()" aria-label="Close"
+                              #closeProcess>
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div *ngIf="showKeyContractPdf">
+                                  <div *ngFor='let l of filteredList'>
+                                    <pdf-viewer src="{{ '../assets/img/documents/' + l.KEYCONTRACT_REPORT }}"
+                                      [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                    </pdf-viewer>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="mykeyModal.hide()">
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                <label>Compliance Documents(Data Room)</label>
+                <input ng2FileSelect [uploader]="federalPlanUploader" class="form-control" type="file"
+                  id="federalImage" #federal>
+                <div class="row">
+                  <button type="button" class="btn btn-sm btn-danger"
+                  (click)="clearComplianceReport()">clear file</button>
+                  <button type="button" class="btn btn-sm btn-primary"
+                    (click)="uploadComplianceReport()">upload</button>
+                  <div *ngIf="edit_CompanyID!=undefined">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+                      (click)="mycompModal.show()" (click)="viewComplianceData()">View Documents</button>
+                    <div bsModal #mycompModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                      aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Compliance Documents</h4>
+                            <button type="button" class="close" (click)="mycompModal.hide()" aria-label="Close"
+                              #closeProcess>
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div *ngIf="showCompliancePdf">
+                                  <div *ngFor='let l of filteredList'>
+                                    <pdf-viewer src="{{ '../assets/img/documents/' + l.FEDERAL_REPORT }}"
+                                      [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                    </pdf-viewer>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="mycompModal.hide()">
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-12 col-lg-12">   
+      <button type="submit" style="width:150px" class="btn btn-success float-right"
+         >Save</button>
+         </div>       
+     </div>  -->
+  </div>
+</form>

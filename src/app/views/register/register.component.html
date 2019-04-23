@@ -1,0 +1,151 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+                <form *ngIf='!isResetPwd' [formGroup]="userRegisterData" (ngSubmit)="register()">
+                <h1>Register</h1>
+                <p class="text-muted">Create your account</p>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Username" formControlName="Username" 
+                  [(ngModel)]="userName" [ngClass]="{ 'is-invalid': submitted && f.Username.errors }" >
+                  <div *ngIf="submitted && f.Username.errors" class="invalid-feedback">
+                      <div *ngIf="f.Username.errors.required" style="margin-left: 40px">Username is required</div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">@</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Email" formControlName="Email" 
+                  [(ngModel)]="userEmail" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" >
+                  <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                      <div *ngIf="f.Email.errors.required" style="margin-left: 40px">Email is required</div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" class="form-control" placeholder="Password" formControlName="Password" 
+                  [(ngModel)]="userPassword" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" >
+                  <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                      <div *ngIf="f.Password.errors.required" style="margin-left: 40px">Password is required</div>
+                  </div>
+                </div>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" class="form-control" placeholder="Confirmation Password" formControlName="Confirm_Password" 
+                  [(ngModel)]="userConPassword" [ngClass]="{ 'is-invalid': submitted && f.Confirm_Password.errors }" >
+                  <div *ngIf="submitted && f.Confirm_Password.errors" class="invalid-feedback">
+                      <div *ngIf="f.Confirm_Password.errors.required" style="margin-left: 40px">Confirm Password is required</div>
+                  </div>
+                </div>
+                <div class="col-md-12 ">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="option1" id="checkbox1" (change)="termsCheck=!termsCheck">
+                        <label class="form-check-label" for="checkbox1">
+                            I have read and agree to the <a onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#20a8d8'" (click)="termsData()"
+                            data-dismiss="modal" data-toggle="termsModal"  (click)="termsModal.show()" style="color: #20a8d8">terms of service</a>
+                        </label>
+                    </div>
+                </div>
+                <button *ngIf="termsCheck" type="submit" class="btn btn-block btn-success">Create Account</button>
+              </form>
+
+              <!-- Reset Password -->
+              <form *ngIf='isResetPwd' [formGroup]="resetPasswordForm" (ngSubmit)="resetPwd()">
+                  <h1>Reset Your Password</h1>
+                  <!-- <p class="text-muted">Create your account</p> -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">@</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="Email" 
+                    [(ngModel)]="userEmail" [ngClass]="{ 'is-invalid': submitted && r.Email.errors }" >
+                    <div *ngIf="submitted && r.Email.errors" class="invalid-feedback">
+                        <div *ngIf="r.Email.errors.required" style="margin-left: 40px">Email is required</div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="Password" 
+                    [(ngModel)]="userPassword" [ngClass]="{ 'is-invalid': submitted && r.Password.errors }" >
+                    <div *ngIf="submitted && r.Password.errors" class="invalid-feedback">
+                        <div *ngIf="r.Password.errors.required" style="margin-left: 40px">Password is required</div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="confirmation password" formControlName="Confirm_Password" 
+                    [(ngModel)]="userConPassword" [ngClass]="{ 'is-invalid': submitted && r.Confirm_Password.errors }" >
+                    <div *ngIf="submitted && f.Confirm_Password.errors" class="invalid-feedback">
+                        <div *ngIf="r.Confirm_Password.errors.required" style="margin-left: 40px">Confirm Password is required</div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-block btn-success">Reset Password</button>
+              </form>
+            </div>
+            <!-- <div class="card-footer p-4">
+              <div class="row">
+                <div class="col-6">
+                  <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div bsModal #termsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Terms and Conditions</h4>
+                <button type="button" class="close" (click)="termsModal.hide()" aria-label="Close" #closeProcess>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style=" height: 490px;overflow-y: auto;"> 
+                <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-body">                       
+                        <!-- <button type="button" class="btn btn-primary" (click)="termsDocument()">Terms & Conditions</button> -->
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div *ngIf="showPDF">
+                              <pdf-viewer src="{{ '../assets/img/documents/privacy.pdf'}}" [render-text]="true"
+                                [page]="page"  style="display: block;" [original-size]="false" >
+                              </pdf-viewer>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>        
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="termsModal.hide()">
+                    Close
+                </button>               
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,255 @@
+<form [formGroup]="sellerBusinessData" (ngSubmit)="saveSellerBusinessInfo()">
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <div class="form-group">
+                                    <label>Title:<span
+                                            style="color: red;font-size: 20px">*</span></label>
+                                    <input type="text" formControlName="Title" class="form-control"
+                                        
+                                        [ngClass]="{ 'is-invalid': submitted && f.Title.errors }" />
+                                    <div *ngIf="submitted && f.Title.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Title.errors.required">Title is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Enter Your Address:<span
+                                            style="color: red;font-size: 20px">*</span> </label>
+                                    <input places-auto-complete [types]="['geocode']"
+                                        formControlName="Address" (place_changed)="placeChanged($event)"
+                                        class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.Address.errors }" />
+                                    <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Address.errors.required">Address is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description About Your Business :<span
+                                    style="color: red;font-size: 20px">*</span> </label>
+                            <textarea class="form-control" rows="4" cols="80"
+                                formControlName="Description"
+                                [ngClass]="{ 'is-invalid': submitted && f.Description.errors }"
+                                placeholder="You can write your text here..."></textarea>
+                            <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+                                <div *ngIf="f.Description.errors.required">Description is required</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-sm-4 col-lg-4"> -->
+                            <div class="form-group">
+                                <label style="margin-top: 10px;">Category :<span
+                                        style="color: red;font-size: 20px">*</span></label>
+                                <ng-select [items]="baseCategoryList" style="width:250px;"
+                                    bindLabel="cname" bindValue="cname" formControlName="Category"
+                                    placeholder="Category" 
+                                    (change)="changeCategory($event)" 
+                                    class="form-control">
+                                </ng-select>
+                            </div>
+                            <!-- </div> -->
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label style="margin-top: 10px;">Sub Category:<span
+                                            style="color: red;font-size: 20px">*</span></label>
+
+                                    <ng-select [items]="subcategoryList" style="width:250px;"
+                                        bindLabel="scname" bindValue="scname"
+                                        placeholder="Select Sub Category" formControlName="SubCategory"
+                                        
+                                        (change)="changesubCategory($event)" >
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-4">
+                                <div class="form-group">
+                                    <label style="margin-top: 10px;">Base Category</label>
+
+                                    <ng-select [items]="subChildList" style="width:250px;"
+                                        bindLabel="scname" bindValue="scname"
+                                        placeholder="Select Subchild" formControlName="SubChildCategory"
+                                        >
+                                    </ng-select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <div class="form-group">
+                                    <label>State:<span
+                                            style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="stateList" style="width:250px;"
+                                        bindLabel="state" bindValue="state" placeholder="Select State"
+                                        formControlName="State" 
+                                        (change)="changeState($event)" >
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <div class="form-group">
+                                    <label>County:<span
+                                            style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="citiesList" style="width:250px;"
+                                        bindLabel="city" bindValue="city" placeholder="Select City"
+                                         formControlName="County"
+                                        [ngClass]="{ 'is-invalid': submitted && f.County.errors }">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <div class="form-group">
+                                    <label>Company Type:<span
+                                            style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="companyTypeList" style="width:250px;"
+                                        formControlName="CmpType" placeholder="Company Type"
+                                        
+                                        [ngClass]="{ 'is-invalid': submitted && f.CmpType.errors }">
+                                        <div *ngIf="submitted && f.CmpType.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="f.CmpType.errors.required">Company Type is
+                                                required</div>
+                                        </div>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Sell Type:<span
+                                            style="color: red;font-size: 20px">*</span></label>
+                                    <ng-select [items]="sellTypeList" style="width:250px;"
+                                        bindLabel="name" bindValue="value" formControlName="SellType"
+                                        placeholder="Sell Type" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.SellType.errors }">
+                                        <div *ngIf="submitted && f.SellType.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="f.SellType.errors.required">Sell Type is
+                                                required</div>
+                                        </div>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <div class="form-group">
+                                    <label>Employees</label>
+                                    <ng-select [items]="employeesCount" style="width:250px;"
+                                        formControlName="EmpCount" placeholder="Employees"
+                                       >
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <ng-select [items]="priceList" style="width:250px;"
+                                        formControlName="Price" placeholder="Price"
+                                        >
+                                        <ng-template ng-label-tmp ng-option-tmp let-item="item">
+                                            {{item | currency}}
+                                        </ng-template>
+                                    </ng-select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <div class="form-group">
+                                    <label>Youtube Url :<span
+                                            style="color: red;font-size: 20px">*</span></label>
+                                    <input type="text" formControlName="YoutubeUrl" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.YoutubeUrl.errors }" />
+                                    <div *ngIf="submitted && f.YoutubeUrl.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.YoutubeUrl.errors.required">YoutubeUrl is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Zip Code </label>
+                                    <input type="number" formControlName="ZipCode" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.ZipCode.errors }" />
+                                    <div *ngIf="submitted && f.ZipCode.errors" class="invalid-feedback">
+                                        <div *ngIf="f.ZipCode.errors.required">Zip Code is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <label style="width:150px;" for="image">Upload Images</label>
+                                <input type="file" id="PrimaryImage" ng2FileSelect
+                                    [uploader]="primaryImageUploader" #fileInput>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                            (click)="clearPrimaryImage()">clear file
+                                        </button>
+                                        <!-- <button type="button" class="btn btn-sm btn-primary"
+                                            (click)="uploadPrimaryImage()">upload
+                                        </button> -->
+                                    </div>
+                                <div class="row">                                    
+                                    <div *ngIf="isUpload">                                     
+                                        <img *ngFor='let img of primaryImage'
+                                            src="{{'data:image/jpg;base64,' + img.value}}" height="100"
+                                            width="100">                                      
+                                    </div>  
+                                                                   
+                                    <div *ngIf="!isUpload">
+                                        <div *ngIf="edit_CompanyID!=undefined">
+                                        <img src="{{'../assets/img/' + sellerBusinessData.value.prime_img}}" height="100" width="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                                <label style="width:150px;" for="image">Secondary Images</label>
+                                <input type="file" id="SecondaryImage" ng2FileSelect
+                                    [uploader]="SecondaryImageUploader" multiple #fileInput />
+                                    <div class="row">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                        (click)="clearSecondaryImage()">clear file
+                                        </button>
+                                        <!-- <button type="button" class="btn btn-sm btn-primary"
+                                            (click)="secondaryImageUpload()">upload
+                                        </button> -->
+                                    </div>
+
+                                <div class="row">
+                                    <div *ngIf="isUpload">
+                                        <img *ngFor='let img of SecondaryImageData' src="{{'data:image/jpg;base64,' + img.value}}" height="100" width="100">
+                                    </div>                                    
+                                    <div *ngIf="img">                                       
+                                        <img *ngFor='let img of secondaryImages' src="{{'../assets/img/' + img.IMG_NAME}}" height="100" width="100">
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+        </div>    
+        <div class="row">
+                <div class="col-md-12 col-lg-12">   
+              <button type="submit" style="width:150px" class="btn btn-success float-right"
+                 >Save</button>
+                 </div>       
+        </div> 
+    </div>
+  </form>

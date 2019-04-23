@@ -1,0 +1,57 @@
+<form [formGroup]="sellerAgentData" (ngSubmit)="saveSellerAgentInfo()">
+    <div class="col-md-12 col-lg-12">   
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-5">
+                            <div class="form-group">
+                                <label>Accountant :<span style="color: red;font-size: 20px">*</span></label>
+                                <input type="text" formControlName="accountant" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.accountant.errors }" />
+                                <div *ngIf="submitted && f.accountant.errors" class="invalid-feedback">
+                                    <div *ngIf="f.accountant.errors.required">Accountant is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5  col-lg-5 ">
+                            <div class="form-group">
+                                <label>Attorney :<span style="color: red;font-size: 20px">*</span></label>
+                                <input type="text" formControlName="attorney" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.attorney.errors }">
+                                <div *ngIf="submitted && f.attorney.errors" class="invalid-feedback">
+                                    <div *ngIf="f.attorney.errors.required">Attorney is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-5 col-lg-5">
+                            <div class="form-group">
+                                <label>Business Broker </label>
+                                <input type="text" formControlName="bussinessBrokerDetails" class="form-control">
+                                <div *ngIf="submitted && f.bussinessBrokerDetails.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bussinessBrokerDetails.errors.required">Business
+                                        Broker is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div>                        
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12 col-lg-12">   
+          <button type="submit" style="width:150px;" class="btn btn-success float-right"
+             >Save</button>
+             </div>       
+    </div>  
+    </div> 
+</form>

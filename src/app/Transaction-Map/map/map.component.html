@@ -1,0 +1,425 @@
+<div class="card">
+  <div class="card-header">
+    <!-- <div *ngIf="!isprofessional && !isSellerTran" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="businessList"
+          [(ngModel)]="companyId"
+          bindLabel="TITLE"
+          bindValue="COMPANY_ID"
+          placeholder="Select Business"
+          (change)="changeCompany()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <img height="15" width="15" [src]="item.avatar" />
+            {{ item.TITLE }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.TITLE }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div> -->
+
+    <!-- <div *ngIf="isSellerTran" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="sellerList"
+          [(ngModel)]="companyId"
+          bindLabel="TITLE"
+          bindValue="COMPANY_ID"
+          placeholder="Select Business"
+          (change)="changeCompany()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <img height="15" width="15" [src]="item.avatar" />
+            {{ item.TITLE }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.TITLE }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div> -->
+
+    <div *ngIf="isprofessional" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Choose Role</h3></label>
+        <ng-select
+          [items]="agentType"
+          bindLabel="name"
+          bindValue="value"
+          placeholder="Select Role"
+          [(ngModel)]="user_role"
+          (change)="onRoleChange()"
+        >
+        </ng-select>
+      </div>
+    </div>
+
+    <div *ngIf="isBuyer || isSeller" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="professionalList"
+          [(ngModel)]="tranId"
+          bindLabel="TITLE"
+          bindValue="TRAN_ID"
+          placeholder="Select Business"
+          (change)="changeTransaction()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <img height="15" width="15" [src]="item.avatar" />
+            {{ item.TITLE }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.TITLE }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isProcess">
+  <ul class="list-unstyled multi-steps">
+    <li *ngFor="let l of CheckList" [ngClass]="{ 'is-active': l.STATUS == 0 }">
+      {{ l.STEPS }}
+    </li>
+  </ul>
+</div>
+
+<div class="card">
+  <div *ngIf="isbuyerList && !isProcess" class="card-body">
+    <div *ngIf="!isSellerLogin" class="card">
+      <div class="card-header"><h6>Business Info</h6></div>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3"><h6>Business Name :</h6></dt>
+          <dd class="col-sm-3">
+            <h6>{{ buyerListBiz[0].TITLE }}</h6>
+          </dd>
+
+          <dt class="col-sm-3"><h6>Address :</h6></dt>
+          <dd class="col-sm-3">
+            <h6>{{ buyerListBiz[0].ADDRESS }}</h6>
+          </dd>
+
+          <dt class="col-sm-3 text-truncate"><h6>Rent :</h6></dt>
+          <dd class="col-sm-3">
+            <h6>{{ buyerListBiz[0].PRICE | currency }}</h6>
+          </dd>
+
+          <dt class="col-sm-3 text-truncate"><h6>State :</h6></dt>
+          <dd class="col-sm-3">
+            <h6>{{ buyerListBiz[0].STATE }}</h6>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <div *ngIf="!isSellerLogin" class="card">
+      <diV class="card-header"> <h6>Seller Info</h6></diV>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3"><h6>Seller :</h6></dt>
+          <dd class="col-sm-3">
+            <h6>{{ buyerListBiz[0].SELLER }}</h6>
+          </dd>
+          <dt class="col-sm-3"><h6>Principle Agent :</h6></dt>
+          <dd class="col-sm-3">
+            <h6>
+              <a
+                (click)="navigateProfDetail(buyerListBiz[0].SELLER_PROF_ID)"
+                style="text-decoration-line: underline;cursor:pointer"
+              >
+                {{ buyerListBiz[0].SELLER_PROF }}
+              </a>
+            </h6>
+          </dd>
+        </dl>
+        <button
+          type="button"
+          style="margin-left:5px"
+          class="btn btn-sm btn-info"
+          (click)="viewBizServices(buyerListBiz[0].COMPANY_ID)"
+        >
+          <i class="fa fa-search"></i>&nbsp; View Services
+        </button>
+        <div
+          class="card-body"
+          *ngIf="selected_ComId == buyerListBiz[0].COMPANY_ID"
+        >
+          <div *ngFor="let l of seller_services">
+            <h6 class="row">
+              {{ l.SERVICE_TYPE }}&nbsp;: {{ l.USERNAME }} &nbsp;
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isBuyerLogin">
+      <div *ngIf='isSellerLogin'  class="row">
+        <div class="ml-auto ">
+          <button
+            type="button"
+            class="btn btn-warning"
+            (click)="moreBuyerDetails()"
+          >
+            More Buyer
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div
+          class="col-md-6 col-sm-6 card"
+          *ngFor="
+            let l of (buyerListBiz
+              | paginate: { itemsPerPage: 8, currentPage: p });
+            let i = index
+          "
+        >
+          <diV class="card-header">
+            <h6>Buyer : {{ l.BUYER }}</h6>
+          </diV>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-sm-3"><h6>Buyer :</h6></dt>
+              <dd class="col-sm-3">
+                <h6>{{ l.BUYER }}</h6>
+              </dd>
+              <dt class="col-sm-3"><h6>Principle Agent :</h6></dt>
+              <dd class="col-sm-3">
+                <h6>
+                  <a
+                    (click)="navigateProfDetail(buyerListBiz[0].SELLER_PROF_ID)"
+                    style="text-decoration-line: underline;cursor:pointer"
+                  >
+                    {{ l.BUYER_PROF }}
+                  </a>
+                </h6>
+              </dd>
+              <dt class="col-sm-3"><h6>Offer Price :</h6></dt>
+              <dd class="col-sm-3">
+                <h6>{{ l.OFFER_PRICE }}</h6>
+              </dd>
+            </dl>
+            <div class="row">
+              <button
+                type="button"
+                style="margin-left:5px"
+                class="btn btn-sm btn-info"
+                (click)="addServices(l.TRAN_ID)"
+              >
+                <i class="fa fa-search"></i>&nbsp; View Services
+              </button>
+              <button
+                type="button"
+                style="margin-left:5px"
+                class="btn btn-sm btn-info"
+                (click)="processTran(l.TRAN_ID)"
+              >
+                <i class="fa fa-search"></i>&nbsp; View Process
+              </button>
+              <button
+                type="button"
+                style="margin-left:5px"
+                class="btn btn-sm btn-info"
+                (click)="viewBuyerDocuments(l.TRAN_ID)"
+              >
+                <i class="fa fa-search"></i>&nbsp; View Documents
+              </button>
+            </div>
+            <div *ngIf="process_TranId == l.TRAN_ID">
+              <div class="container-fluid">
+                <ul class="list-unstyled multi-steps">
+                  <li
+                    *ngFor="let l of CheckList"
+                    [ngClass]="{ 'is-active': l.STATUS == 0 }"
+                  >
+                    {{ l.STEPS }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body" *ngIf="selected_TranId == l.TRAN_ID">
+              <div *ngFor="let l of services_list">
+                <h6 class="row">
+                  {{ l.SERVICE_TYPE }}&nbsp;: {{ l.USERNAME }} &nbsp;
+                </h6>
+              </div>
+            </div>
+
+            <div class="card-body" *ngIf="document_TranId == l.TRAN_ID">             
+                <div  class="card-body">
+                  <div *ngIf='personalInfoData.length>0;' class="bd-example">
+                    <dl class="row">
+                        <dt class="col-sm-3">Bank Documents:</dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn  btn-sm btn-primary"
+                            (click)="showBankReport()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isShowBank' type="button" 
+                          style="margin-left:10px"
+                          class="btn btn-sm btn-danger "
+                          (click)="isShowBank = !isShowBank"
+                        >
+                          Hide
+                        </button>
+                        </dd>
+          
+                        <dt class="col-sm-3">NDA :</dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-primary"
+                            (click)="showNDA()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isShowNda' type="button" 
+                          style="margin-left:10px"
+                          class="btn btn-sm btn-danger"
+                          (click)="isShowNda = !isShowNda"
+                        >
+                          Hide
+                        </button>
+                        </dd>
+          
+                        <!-- <dt class="col-sm-3 text-truncate"> Key contract </dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showContract()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isShowContract' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                          (click)="isShowContract = !isShowContract"
+                        >
+                          Hide
+                        </button>
+                        </dd> -->
+                        <!-- <dt class="col-sm-3 text-truncate"> Key contract </dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showContract()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                        </dd> -->
+                        <!-- <dt class="col-sm-3 text-truncate"> Compliance Documents </dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showCompliance()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isShowCompliance' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                          (click)="isShowCompliance = !isShowCompliance"
+                        >
+                          Hide
+                        </button>
+                        </dd> -->
+                    </dl>
+                  </div>
+                  <div *ngIf="isShowliability">
+                      <pdf-viewer
+                        src="{{'../assets/img/SocialDocs/' + personalInfoData[0].BANK_REPORT}}"
+                        [render-text]="true"
+                        [page]="page"
+                        [show-all]="true"
+                        style="display: block;"
+                      >
+                      </pdf-viewer>
+                    </div>
+                    <div *ngIf="isShowNda">
+                        <pdf-viewer
+                          src="{{'../assets/img/SocialDocs/' +personalInfoData[0].NDA_SIGNED}}"
+                          [render-text]="true"
+                          [page]="page"
+                          [show-all]="true"
+                          style="display: block;"
+                        >
+                        </pdf-viewer>
+                      </div>
+                      <!-- <div *ngIf="isShowContract">
+                          <pdf-viewer
+                            src="{{'../assets/img/SocialDocs/' +personalInfoData[0].CONTRACT_REPORT}}"
+                            [render-text]="true"
+                            [page]="page"
+                            [show-all]="true"
+                            style="display: block;"
+                          >
+                          </pdf-viewer>
+                        </div>
+                        <div *ngIf="isShowCompliance">
+                            <pdf-viewer
+                              src="{{'../assets/img/SocialDocs/' +personalInfoData[0].COMPLIANCE_REPORT}}"
+                              [render-text]="true"
+                              [page]="page"
+                              [show-all]="true"
+                              style="display: block;"
+                            >
+                            </pdf-viewer>
+                          </div> -->
+                  <ng-template #noData>        
+                    <img src="../../../assets/img/norecord.png "  class="img-fluid"
+                     alt="No Data Found">
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>    
+  </div>
+
+  <div
+    *ngIf="isbuyerList"
+    class="row justify-content-center"
+    style="margin:1rem;font-weight:bold;"
+  >
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
+  <div *ngIf="isProcess && isBuyerLogin">
+    <div class="card-body">
+      <div class="row">
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let l of CheckList">
+              <div class="form-group">
+                {{ l.ORDER_NUM }}.&nbsp; {{ l.STEPS }} &nbsp;&nbsp;
+                <input
+                  type="checkbox"
+                  [checked]="l.STATUS"
+                  style="float:right"
+                  (change)="toggleVisibility(l.ORDER_NUM)"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-success" (click)="updateProcess()">
+        <i class="fa fa-plus"></i> Update
+      </button>
+    </div>
+  </div>
+</div>

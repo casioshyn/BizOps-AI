@@ -1,0 +1,117 @@
+<form [formGroup]="sellerPremiseData" (ngSubmit)="saveSellerPremiseInfo()">
+  <div class="col-md-12 col-lg-12">
+      <div class="row">
+          <div class="col-md-12 ">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-5 col-lg-5">
+                              <div class="form-group">
+                                  <label>Size (sq.ft.)</label>
+                                  <input type="text" formControlName="totalAreaSize"
+                                      class="form-control" />
+                                  <div *ngIf="submitted && f.totalAreaSize.errors"
+                                      class="invalid-feedback">
+                                      <div *ngIf="f.totalAreaSize.errors.required">Size is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                              <div class="form-group">
+                                  <label>Rent</label>
+                                  <input type="text" formControlName="rentDetail"
+                                      class="form-control">
+                                  <div *ngIf="submitted && f.rentDetail.errors"
+                                      class="invalid-feedback">
+                                      <div *ngIf="f.rentDetail.errors.required">Rent Details required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-5 col-lg-5">
+                              <div class="form-group">
+                                  <label>Industry Specific</label>
+                                  <input type="text" formControlName="industryDetail"
+                                      class="form-control">
+                                  <div *ngIf="submitted && f.industryDetail.errors"
+                                      class="invalid-feedback">
+                                      <div *ngIf="f.industryDetail.errors.required">Industry Specific
+                                          Details required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                              <div class="form-group">
+                                  <label>Zoning</label>
+                                  <input type="text" formControlName="zoningDetail"
+                                      class="form-control">
+                                  <div *ngIf="submitted && f.zoningDetail.errors"
+                                      class="invalid-feedback">
+                                      <div *ngIf="f.zoningDetail.errors.required">Zoning Details
+                                          required</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-4 col-lg-4">
+                              <label>Lease Report</label>
+                              <input ng2FileSelect [uploader]="premiseUploader" class="form-control"
+                                   type="file" id="preLeaseImage" #premise>
+                              <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                              <div class="row">
+                              <button type="button" class="btn btn-sm btn-danger"
+                              (click)="clearLeaseReport()"  >clear file</button>
+                              <button type="button" class="btn btn-sm btn-primary" (click)="uploadLeaseReport()">upload</button>
+                                  <div *ngIf="edit_CompanyID!=undefined">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" (click)="mypreModal.show()" (click)="viewPremiseData()">View Documents</button>
+                                        <div bsModal #mypreModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Premise Lease Documents</h4>
+                                                            <button type="button" class="close" (click)="mypreModal.hide()" aria-label="Close" #closeProcess>
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" style="height: 400px;overflow-y: auto;">                                                                                                                                    
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                        <div *ngIf="showPremisePdf">
+                                                                                <div *ngFor='let l of filteredList'>
+                                                                                    <pdf-viewer src="{{ '../assets/img/SocialDocs/' + l.PR_IMG }}" [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                                                                    </pdf-viewer>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>                                                                  
+                                                            </div>                                                                  
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" (click)="mypreModal.hide()">
+                                                                Close
+                                                            </button>                                                                       
+                                                        </div>
+                                                    </div>
+                                                </div>                                                
+                                    </div>     
+                                </div>
+                              </div>
+                          </div>                         
+                      </div>
+                  </div>
+              </div>             
+          </div>
+      </div>
+      <div class="row">
+            <div class="col-md-12 col-lg-12">   
+          <button type="submit" style="width:150px" class="btn btn-success float-right"
+             >Save</button>
+             </div>       
+    </div> 
+  </div>
+  </form>
+

@@ -1,0 +1,140 @@
+<form [formGroup]="sellerProcessOverView" (ngSubmit)="saveSellerProcessOverViewInfo()">
+  <div>
+    <div>
+      <ul class="list-unstyled multi-steps">
+        <li *ngFor="let l of processMstr" [ngClass]="{ 'is-active': l.STEP_NAME == selectAction }"
+          (click)="processAction(l.STEP_NAME)">
+          {{ l.STEP_NAME }}
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="row" *ngIf="selectAction == 'List Business'">
+              <h3> To Select The Steps For Your Business Click Submit On The Following
+                Steps !!!
+              </h3>
+
+              <button type="button" style="margin-left:5px" class="btn btn-success"
+                (click)="selectProcess('List Business')">
+                Submit
+              </button>
+            </div>
+            <div class="row" *ngIf="selectAction == 'Search Business'">
+              <h3> To Select The Steps For Your Business Click Submit On The Following Steps !!!
+              </h3>
+
+              <button type="button" style="margin-left:5px" class="btn btn-success"
+                (click)="selectProcess('Search Business')">
+                Submit
+              </button>
+            </div>
+
+            <div *ngIf="selectAction == 'Agreements'">
+              <div class="row justify-content-center">
+                <h3>Would you like the Buyer to Sign an NDA? Upload Your NDA</h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-lg-6">
+                  <label>Upload NDA (Data Room)</label>
+                  <input ng2FileSelect [uploader]="NDAUploader" class="form-control" [(ngModel)]="ndaPDF" type="file"
+                    id="ndaImage" #fileInput>
+                </div>
+                <div style="margin-top:auto">
+                  <div class="row">
+                  <button type="button" class="btn btn-sm btn-primary" (click)="uploadNDA()"> upload</button>
+                  <button type="button" class="btn btn-sm btn-danger" (click)="clearPDF()"> clear file </button>
+                  <div *ngIf="edit_CompanyID!=undefined">
+                      <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" (click)="myndaModal.show()" (click)="viewNDA()">View Documents</button>
+                      <div bsModal #myndaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h4 class="modal-title">NDA Documents</h4>
+                                          <button type="button" class="close" (click)="myndaModal.hide()" aria-label="Close" #closeProcess>
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body" style="height: 400px;overflow-y: auto;">                                                                                                                                    
+                                          <div class="row">
+                                              <div class="col-sm-12">
+                                                      <div *ngIf="ndaPdf">
+                                                              <div *ngFor='let l of filteredList'>
+                                                                  <pdf-viewer src="{{ '../assets/img/SocialDocs/' + l.NDA_IMG }}" [render-text]="true" [page]="page" [show-all]="true" style="display: block;">
+                                                                  </pdf-viewer>
+                                                              </div>
+                                                      </div>
+                                              </div>                                                                  
+                                          </div>                                                                  
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" (click)="myndaModal.hide()">
+                                              Close
+                                          </button>                                                                       
+                                      </div>
+                                  </div>
+                              </div>                                                
+                  </div>  
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" style="margin-left:5px" class="btn btn-success"
+                  (click)="selectProcess('Agreements')">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class="row" *ngIf="selectAction == 'Due Diligence'">
+              <div class="row justify-content-center">
+                <h3>To get access to Data Room, Buyer must upload proof of funds</h3>
+              </div>
+
+              <button type="button" style="margin-left:5px" class="btn btn-success"
+                (click)="selectProcess('Due Diligence')">
+                Submit
+              </button>
+            </div>
+
+            <div class="row" *ngIf="selectAction == 'Site Inspection'">
+              <h3> Buyer notifies and schedules with Principal Agent </h3>
+              <button type="button" style="margin-left:5px" class="btn btn-success"
+                (click)="selectProcess('Site Inspection')">
+                Submit
+              </button>
+            </div>
+
+            <div class="row" *ngIf="selectAction == 'Offer'">
+              <h3> Get Offer Price From The Buyer </h3>
+              <button type="button" style="margin-left:5px" class="btn btn-success" (click)="selectProcess('Offer')">
+                Submit
+              </button>
+            </div>
+            <div class="row" *ngIf="selectAction == 'Closing'">
+              <h3>Time to Close Your Transaction</h3>
+              <button type="button" style="margin-left:5px" class="btn btn-success" (click)="selectProcess('Closing')">
+                Submit
+              </button>
+            </div>
+            <div class="row" *ngIf="selectAction == 'Escrow'">
+              <h3>Escrow</h3>
+              <button type="button" style="margin-left:5px" class="btn btn-success" (click)="selectProcess('Escrow')">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">   
+      <button type="submit" style="width:150px" class="btn btn-success float-right"
+         >Save</button>
+         </div>       
+     </div>
+  </div>
+</form>
